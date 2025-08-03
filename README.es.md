@@ -150,3 +150,9 @@ Para preguntas, soporte o colaboración, por favor contacta:
 -   LinkedIn: [Andrés Gutiérrez](https://www.linkedin.com/in/andr%C3%A9s-guti%C3%A9rrez-hurtado-25946728b/)
 -   GitHub: [@AndresGutierrezHurtado](https://github.com/AndresGutierrezHurtado)
 -   Portafolio: [Link portafolio](https://andres-portfolio-b4dv.onrender.com)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
