@@ -1,13 +1,13 @@
 {
     "name": "php-db-helper",
     "displayName": "PHP DB Helper",
-    "description": "Snippets para conexiones y consultas con PDO y MySQLi, manejo de imágenes, errores y depuración.",
+    "description": "Useful snippets for database connections and queries with PDO and MySQLi, file handling, error management and debugging.",
     "version": "1.0.0",
     "author": "Andrés Gutiérrez Hurtado",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/andresgutierrez/php-db-helper"
+        "url": "https://github.com/AndresGutierrezHurtado/php-db-helper"
     },
     "keywords": [
         "php",
