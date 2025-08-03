@@ -12,8 +12,8 @@ Useful snippets for modern PHP development with support for:
 Perfect for those who don't want to memorize repetitive code!
 
 <video width="640" height="360" controls>
-  <source src="./extra/demo.mp4" type="video/mp4">
-  Your browser does not support video playback.
+    <source src="https://github.com/AndresGutierrezHurtado/php-db-helper/extra/demo.mp4" type="video/mp4">
+    Your browser does not support video playback.
 </video>
 
 ---

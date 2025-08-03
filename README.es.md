@@ -12,7 +12,7 @@ Snippets útiles para desarrollo PHP moderno con soporte para:
 ¡Ideal para quienes no quieren memorizar código repetitivo!
 
 <video width="640" height="360" controls>
-    <source src="./extra/demo.mp4" type="video/mp4">
+    <source src="https://github.com/AndresGutierrezHurtado/php-db-helper/extra/demo.mp4" type="video/mp4">
     Tu navegador no soporta la reproducción de video.
 </video>
 
