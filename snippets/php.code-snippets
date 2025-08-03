@@ -1,0 +1,194 @@
+{
+    "PDO: Connect to MySQL": {
+        "prefix": "pdo-conn",
+        "body": [
+            "\\$host = '${1:127.0.0.1}';",
+            "\\$dbname = '${2:database_name}';",
+            "\\$user = '${3:root}';",
+            "\\$password = '${4:}';",
+            "\\$port = '${5:3306}';",
+            "\\$charset = '${6:utf8mb4}';",
+            "",
+            "try {",
+            "    \\$conn = new PDO(\"mysql:host=\\$host;dbname=\\$dbname;port=\\$port;charset=\\$charset\", \\$user, \\$password);",
+            "    \\$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);",
+            "",
+            "    echo 'Connection successful';",
+            "} catch (PDOException \\$e) {",
+            "    echo 'Connection error: ' . \\$e->getMessage();",
+            "    exit();",
+            "}"
+        ],
+        "description": "Connect to MySQL using PDO"
+    },
+
+    "PDO: Query with parameters": {
+        "prefix": "pdo-query",
+        "body": [
+            "\\$sql = \"SELECT * FROM users WHERE id = :id AND name = :name AND active = :active\";",
+            "\\$stmt = \\$conn->prepare(\\$sql);",
+            "\\$stmt->bindParam(':id', \\$id, PDO::PARAM_INT);",
+            "\\$stmt->bindParam(':name', \\$name, PDO::PARAM_STR);",
+            "\\$stmt->bindParam(':active', \\$active, PDO::PARAM_BOOL);",
+            "\\$stmt->execute();",
+            "",
+            "\\$result = \\$stmt->fetchAll(PDO::FETCH_ASSOC);"
+        ],
+        "description": "Perform a query with parameters using PDO"
+    },
+
+    "PDO: Simple query": {
+        "prefix": "pdo-query-simple",
+        "body": [
+            "\\$sql = \"SELECT * FROM users\";",
+            "\\$result = \\$conn->query(\\$sql)->fetchAll(PDO::FETCH_ASSOC);"
+        ],
+        "description": "Perform a simple query using PDO"
+    },
+
+    "PDO: Transaction with error handling": {
+        "prefix": "pdo-transaction",
+        "body": [
+            "try {",
+            "    // Start transaction",
+            "    \\$conn->beginTransaction();",
+            "    // Code that can throw an exception",
+            "    \\$conn->commit();",
+            "} catch (PDOException \\$e) {",
+            "    \\$conn->rollBack();",
+            "    echo 'Error: ' . \\$e->getMessage();",
+            "    exit();",
+            "}"
+        ],
+        "description": "Transaction with error handling"
+    },
+
+    "PDO: Close connection": {
+        "prefix": "pdo-close",
+        "body": ["\\$conn = null;"],
+        "description": "Close connection"
+    },
+
+    "MySQLi: Connect to MySQL": {
+        "prefix": "mysqli-conn",
+        "body": [
+            "\\$host = '${1:127.0.0.1}';",
+            "\\$user = '${2:root}';",
+            "\\$password = '${3:}';",
+            "\\$dbname = '${4:database_name}';",
+            "\\$port = ${5:3306};",
+            "",
+            "try {",
+            "    \\$conn = new mysqli(\\$host, \\$user, \\$password, \\$dbname, \\$port);",
+            "",
+            "    if (\\$conn->connect_error) {",
+            "        die('Connection failed: ' . \\$conn->connect_error);",
+            "    }",
+            "",
+            "    echo 'Connection successful';",
+            "} catch (mysqli_sql_exception \\$e) {",
+            "    echo 'Connection failed: ' . \\$e->getMessage();",
+            "    exit();",
+            "}"
+        ],
+        "description": "Connect to MySQL using MySQLi"
+    },
+
+    "MySQLi: Simple query": {
+        "prefix": "mysqli-query-simple",
+        "body": [
+            "\\$sql = \"SELECT * FROM users\";",
+            "\\$result = \\$conn->query(\\$sql);",
+            "",
+            "if (\\$result->num_rows > 0) {",
+            "    while (\\$row = \\$result->fetch_assoc()) {",
+            "        print_r(\\$row);",
+            "    }",
+            "} else {",
+            "    echo 'No results found';",
+            "}"
+        ],
+        "description": "Perform a simple query using MySQLi"
+    },
+
+    "MySQLi: Query with parameters (prepared statement)": {
+        "prefix": "mysqli-query",
+        "body": [
+            "\\$sql = \"SELECT * FROM users WHERE id = ? AND name = ? AND active = ?\";",
+            "\\$stmt = \\$conn->prepare(\\$sql);",
+            "\\$stmt->bind_param(\"isi\", \\$id, \\$name, \\$active ? 1 : 0); // i = int, s = string, b = blob, d = double",
+            "\\$stmt->execute();",
+            "",
+            "\\$result = \\$stmt->get_result();",
+            "",
+            "while (\\$row = \\$result->fetch_assoc()) {",
+            "    print_r(\\$row);",
+            "}"
+        ],
+        "description": "Query with prepared statement using MySQLi"
+    },
+
+    "MySQLi: Transaction with error handling": {
+        "prefix": "mysqli-transaction",
+        "body": [
+            "try {",
+            "    \\$conn->begin_transaction();",
+            "",
+            "    // Queries here",
+            "",
+            "    \\$conn->commit();",
+            "} catch (Exception \\$e) {",
+            "    \\$conn->rollback();",
+            "    echo 'Transaction failed: ' . \\$e->getMessage();",
+            "    exit();",
+            "}"
+        ],
+        "description": "Transaction with error handling using MySQLi"
+    },
+
+    "MySQLi: Close connection": {
+        "prefix": "mysqli-close",
+        "body": ["\\$conn->close();"],
+        "description": "Close MySQLi connection"
+    },
+
+    "File: Upload Handler": {
+        "prefix": "php-upload-file",
+        "body": [
+            "// ${1:filename} is the name of the file input",
+            "if (isset(\\$_FILES[\"${1:filename}\"]) && \\$_FILES[\"${1:filename}\"][\"error\"] === UPLOAD_ERR_OK) {",
+            "    // get file info",
+            "    \\$fileTmpPath = \\$_FILES[\"${1:filename}\"][\"tmp_name\"];",
+            "    \\$fileName = \\$_FILES[\"${1:filename}\"][\"name\"];",
+            "    \\$fileSize = \\$_FILES[\"${1:filename}\"][\"size\"];",
+            "    \\$fileType = \\$_FILES[\"${1:filename}\"][\"type\"];",
+            "",
+            "    // set new file name with uniqid, and upload dir",
+            "    \\$fileExtension = strtolower(pathinfo(\\$fileName, PATHINFO_EXTENSION));",
+            "    \\$newFileName = uniqid(\"${2:file}_\") . '.' . \\$fileExtension;",
+            "",
+            "    \\$uploadDir = __DIR__ . \"${3:/uploads}/\";",
+            "    \\$destPath = \\$uploadDir . \\$newFileName;",
+            "",
+            "    // check if upload dir exists, if not create it",
+            "    if (!is_dir(\\$uploadDir)) {",
+            "        mkdir(\\$uploadDir, 0755, true);",
+            "    }",
+            "",
+            "    // move file to upload dir",
+            "    if (move_uploaded_file(\\$fileTmpPath, \\$destPath)) {",
+            "        echo 'File uploaded successfully: ' . \\$newFileName;",
+            "    } else {",
+            "        echo 'Error moving the uploaded file.';",
+            "    }",
+            "}"
+        ],
+        "description": "Handle file upload securely and move it to a specified folder"
+    },
+
+    "Debug: Print variable content": {
+        "prefix": "debug-var",
+        "body": ["echo '<pre>';", "print_r(${1:\\$variable});", "echo '</pre>';"],
+        "description": "Print variable content for debugging"
+    }
+}

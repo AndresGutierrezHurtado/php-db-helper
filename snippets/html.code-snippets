@@ -1,0 +1,8 @@
+{
+    "Echo: Print variable with html": {
+        "prefix": "echo-var-html",
+        "body": ["<?= ${1:$variable} ?>"],
+        "description": "Print variable content with html",
+        "scope": "php,html"
+    }
+}
